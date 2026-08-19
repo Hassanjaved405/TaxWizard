@@ -2,11 +2,14 @@ import type { WizardAnswers } from "@/lib/wizard/types";
 import { formatPkr } from "@/lib/wizard/format";
 import { computeFilingSummary } from "@/lib/taxRules/calculate";
 import { resolveIrisFieldMap } from "@/lib/taxRules/irisMapping";
+import { saveFilingAction } from "@/lib/supabase/actions";
 import { SlabBreakdownTable } from "./SlabBreakdownTable";
 import { EmploymentBreakdownTable } from "./EmploymentBreakdownTable";
 
 interface ResultsSummaryProps {
   answers: WizardAnswers;
+  /** False when rendering an already-saved filing (e.g. /results/[id]). */
+  canSave?: boolean;
 }
 
 const DOCUMENT_CHECKLIST = [
@@ -26,10 +29,11 @@ const NET_POSITION_COPY: Record<
   settled: { label: "You're settled — nothing owed or due", colorClass: "text-paper-ink" },
 };
 
-export function ResultsSummary({ answers }: ResultsSummaryProps) {
+export function ResultsSummary({ answers, canSave = false }: ResultsSummaryProps) {
   const summary = computeFilingSummary(answers);
   const irisRows = resolveIrisFieldMap(summary, answers);
   const netCopy = NET_POSITION_COPY[summary.netPosition.type];
+  const boundSaveFiling = saveFilingAction.bind(null, answers);
 
   return (
     <div className="flex flex-col gap-6">
@@ -78,6 +82,20 @@ export function ResultsSummary({ answers }: ResultsSummaryProps) {
             PKR {formatPkr(summary.salaryWithheld)}
           </dd>
         </dl>
+
+        {canSave && (
+          <form action={boundSaveFiling} className="mt-6 border-t border-paper-muted pt-6">
+            <button
+              type="submit"
+              className="rounded-md bg-brass px-5 py-2.5 text-sm font-medium text-paper-ink transition-colors hover:bg-brass-strong"
+            >
+              Save this filing
+            </button>
+            <p className="mt-2 text-xs text-paper-ink-soft">
+              You&apos;ll be asked to log in or sign up first if you haven&apos;t already.
+            </p>
+          </form>
+        )}
       </div>
 
       <div className="rounded-lg bg-paper p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] sm:p-8">

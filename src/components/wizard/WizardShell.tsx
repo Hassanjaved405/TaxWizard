@@ -143,7 +143,7 @@ export function WizardShell() {
             >
               ← Edit your answers
             </button>
-            <ResultsSummary answers={answers} />
+            <ResultsSummary answers={answers} canSave />
           </motion.div>
         ) : currentStep ? (
           <motion.div

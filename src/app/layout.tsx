@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
+import { AuthNav } from "@/components/auth/AuthNav";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -47,10 +48,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <span aria-hidden className="text-brass">✎</span>
               TaxWizard
             </Link>
-            <p className="text-xs text-on-ink-muted">
-              Independent calculation aid — not affiliated with, endorsed by, or
-              connected to FBR or IRIS. You file your own return.
-            </p>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <p className="text-xs text-on-ink-muted">
+                Independent calculation aid — not affiliated with, endorsed by, or
+                connected to FBR or IRIS. You file your own return.
+              </p>
+              <AuthNav />
+            </div>
           </div>
         </header>
 
