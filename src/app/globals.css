@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  /* Ink desk (app background, header/footer) */
+  --ink: #131b24;
+  --ink-raised: #1b2530;
+  --ink-line: #2a3641;
+
+  /* Paper (question cards, content surfaces) */
+  --paper: #f2ecdd;
+  --paper-muted: #e4dbc5;
+  --paper-ink: #20262b;
+  --paper-ink-soft: #5b5647;
+
+  /* Text on ink */
+  --on-ink: #f2ecdd;
+  --on-ink-muted: #93a0ab;
+
+  /* Brass accent (primary actions, active progress, highlights) */
+  --brass: #d3a94b;
+  --brass-strong: #b8862e;
+  --brass-soft: rgba(211, 169, 75, 0.18);
+
+  /* Semantic (tax owed vs. refund due) */
+  --owe: #b4483c;
+  --refund: #4b8b72;
+
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-plex-sans);
+  --font-data: var(--font-plex-mono);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-raised: var(--ink-raised);
+  --color-ink-line: var(--ink-line);
+  --color-paper: var(--paper);
+  --color-paper-muted: var(--paper-muted);
+  --color-paper-ink: var(--paper-ink);
+  --color-paper-ink-soft: var(--paper-ink-soft);
+  --color-on-ink: var(--on-ink);
+  --color-on-ink-muted: var(--on-ink-muted);
+  --color-brass: var(--brass);
+  --color-brass-strong: var(--brass-strong);
+  --color-owe: var(--owe);
+  --color-refund: var(--refund);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-data: var(--font-data);
+}
+
+body {
+  background: var(--ink);
+  color: var(--on-ink);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--brass-soft);
+  color: var(--paper-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

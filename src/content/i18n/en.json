@@ -1,0 +1,101 @@
+{
+  "categories": {
+    "filing-info": "Filing info",
+    "salary": "Salary income",
+    "other-income": "Other income",
+    "deductions": "Deductions",
+    "wealth": "Wealth statement"
+  },
+  "notices": {
+    "ty2026Unverified": "TY2026 slab rates in this preview are placeholders pending verification against the official Finance Act 2025 gazette. Do not rely on TY2026 figures yet."
+  },
+  "employmentPeriodsForm": {
+    "employerNameLabel": "Employer name (optional)",
+    "employerNamePlaceholder": "e.g. Acme Pvt Ltd",
+    "monthsWorkedLabel": "Months worked",
+    "monthlySalaryLabel": "Monthly gross salary",
+    "taxDeductedLabel": "Tax this employer deducted",
+    "addButton": "+ Add another employer",
+    "removeButton": "Remove",
+    "monthsTotalLabel": "Months entered",
+    "monthsTotalExceeded": "That's more than 12 months — check your entries."
+  },
+  "steps": {
+    "taxYear": {
+      "question": "Which tax year are you filing for?",
+      "helpText": "Pakistan's tax year runs 1 July to 30 June. If you're filing the return that's currently due, pick Tax Year 2026.",
+      "options": {
+        "TY2026": "Tax Year 2026 (Jul 2025 – Jun 2026) — filing now",
+        "TY2027": "Tax Year 2027 (Jul 2026 – Jun 2027)"
+      }
+    },
+    "filingStatus": {
+      "question": "Have you filed a tax return before?",
+      "helpText": "This helps us tailor the guide — first-time filers get extra pointers on registering with IRIS.",
+      "options": {
+        "first-time": "This is my first time filing",
+        "returning": "I've filed a return before"
+      }
+    },
+    "employmentPeriods": {
+      "question": "Tell us about your employer(s) this tax year",
+      "helpText": "If you switched jobs, add each employer separately with how many months you worked there — the wizard adds up the totals for you. Gross salary means before tax, EOBI, or provident fund deductions."
+    },
+    "annualBonus": {
+      "question": "How much did you receive in bonuses or allowances this year?",
+      "helpText": "Add up any annual bonus, festival bonus, or taxable allowances not already included in your monthly salary. Enter 0 if none."
+    },
+    "hasBankProfit": {
+      "question": "Did you earn any profit or interest from a bank account this year?",
+      "helpText": "This includes profit on savings accounts, term deposits, or National Savings certificates."
+    },
+    "bankProfitAmount": {
+      "question": "How much bank profit did you earn this year?",
+      "helpText": "Use the total from your bank's annual tax certificate, before any tax was withheld."
+    },
+    "bankProfitTaxWithheld": {
+      "question": "How much tax did the bank already withhold on that profit?",
+      "helpText": "Banks usually deduct tax automatically — the figure is on the same certificate. Enter 0 if none was withheld."
+    },
+    "hasDonations": {
+      "question": "Did you donate to an FBR-approved charity this year?",
+      "helpText": "Only donations to organisations on FBR's approved list qualify for a tax credit."
+    },
+    "donationAmount": {
+      "question": "How much did you donate to approved charities?",
+      "helpText": "Use the total across all approved donations — keep your receipts, IRIS may ask for them."
+    },
+    "bankBalance": {
+      "question": "What's the total balance across your bank accounts right now?",
+      "helpText": "This feeds your Wealth Statement, which FBR compares year over year — add up all accounts as of today."
+    },
+    "hasVehicle": {
+      "question": "Do you own a car or motorbike?",
+      "helpText": "Vehicles registered in your name need to be declared as an asset."
+    },
+    "vehicleValue": {
+      "question": "What's the current value of your vehicle?",
+      "helpText": "An honest estimate of what it would sell for today is fine — you don't need a formal valuation."
+    },
+    "hasProperty": {
+      "question": "Do you own any property?",
+      "helpText": "This includes land, a house, or an apartment registered in your name, anywhere in Pakistan."
+    },
+    "propertyValue": {
+      "question": "What's the current value of your property?",
+      "helpText": "Use the FBR valuation table if you know it, otherwise a reasonable market estimate."
+    },
+    "cashInHand": {
+      "question": "How much cash do you have on hand, outside of bank accounts?",
+      "helpText": "A rough figure is fine. Enter 0 if you don't keep meaningful cash on hand."
+    },
+    "hasLiabilities": {
+      "question": "Do you have any outstanding loans or liabilities?",
+      "helpText": "This includes bank loans, car financing, or money you owe to be repaid."
+    },
+    "liabilitiesAmount": {
+      "question": "What's the total outstanding amount you owe?",
+      "helpText": "Use the current outstanding balance, not the original loan amount."
+    }
+  }
+}
