@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getFiling } from "@/lib/supabase/filings";
-import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { isEncryptionConfigured, isSupabaseConfigured } from "@/lib/supabase/config";
 import { ResultsSummary } from "@/components/results/ResultsSummary";
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SavedFilingPage(props: PageProps<"/results/[id]">) {
-  if (!isSupabaseConfigured()) notFound();
+  if (!isSupabaseConfigured() || !isEncryptionConfigured()) notFound();
 
   const { id } = await props.params;
 
@@ -20,7 +20,7 @@ export default async function SavedFilingPage(props: PageProps<"/results/[id]">)
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-6 py-12">
-      <ResultsSummary answers={answers} />
+      <ResultsSummary answers={answers} filingId={id} />
     </div>
   );
 }

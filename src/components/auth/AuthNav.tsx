@@ -20,11 +20,15 @@ export async function AuthNav() {
   }
 
   return (
-    <form action={signOutAction} className="flex items-center gap-3">
-      <span className="text-xs text-on-ink-muted">{user.email}</span>
-      <button type="submit" className="text-xs font-medium text-on-ink-muted hover:text-on-ink">
-        Sign out
-      </button>
-    </form>
+    <div className="flex items-center gap-3">
+      <Link href="/account" className="text-xs text-on-ink-muted hover:text-on-ink">
+        {user.email}
+      </Link>
+      <form action={signOutAction}>
+        <button type="submit" className="text-xs font-medium text-on-ink-muted hover:text-on-ink">
+          Sign out
+        </button>
+      </form>
+    </div>
   );
 }

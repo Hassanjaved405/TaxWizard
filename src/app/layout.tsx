@@ -71,6 +71,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               Verify all figures before filing, especially if your situation
               goes beyond simple salaried income.
             </p>
+            <Link href="/privacy" className="mt-2 inline-block underline hover:text-on-ink">
+              Privacy notice
+            </Link>
           </div>
         </footer>
       </body>

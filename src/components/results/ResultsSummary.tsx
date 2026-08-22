@@ -10,6 +10,8 @@ interface ResultsSummaryProps {
   answers: WizardAnswers;
   /** False when rendering an already-saved filing (e.g. /results/[id]). */
   canSave?: boolean;
+  /** Set once a filing is saved — enables the PDF download link. */
+  filingId?: string;
 }
 
 const DOCUMENT_CHECKLIST = [
@@ -29,7 +31,7 @@ const NET_POSITION_COPY: Record<
   settled: { label: "You're settled — nothing owed or due", colorClass: "text-paper-ink" },
 };
 
-export function ResultsSummary({ answers, canSave = false }: ResultsSummaryProps) {
+export function ResultsSummary({ answers, canSave = false, filingId }: ResultsSummaryProps) {
   const summary = computeFilingSummary(answers);
   const irisRows = resolveIrisFieldMap(summary, answers);
   const netCopy = NET_POSITION_COPY[summary.netPosition.type];
@@ -95,6 +97,17 @@ export function ResultsSummary({ answers, canSave = false }: ResultsSummaryProps
               You&apos;ll be asked to log in or sign up first if you haven&apos;t already.
             </p>
           </form>
+        )}
+
+        {filingId && (
+          <div className="mt-6 border-t border-paper-muted pt-6">
+            <a
+              href={`/results/${filingId}/pdf`}
+              className="inline-block rounded-md bg-brass px-5 py-2.5 text-sm font-medium text-paper-ink transition-colors hover:bg-brass-strong"
+            >
+              Download PDF
+            </a>
+          </div>
         )}
       </div>
 
