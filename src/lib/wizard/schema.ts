@@ -112,11 +112,50 @@ export const WIZARD_STEPS: readonly WizardStep[] = [
     showIf: (a) => a.hasDonations === true,
   },
 
-  // --- Wealth statement ---
+  // --- Wealth statement (ordered to match IRIS's real Personal
+  // Assets/Liabilities grouping: Immovable Properties -> Financial Assets
+  // & Investments -> Moveable Assets -> Any Other Assets -> Payables) ---
+  {
+    id: "hasProperty",
+    category: "wealth",
+    contentKey: "hasProperty",
+    inputType: "boolean",
+    schema: booleanSchema,
+  },
+  {
+    id: "propertyValue",
+    category: "wealth",
+    contentKey: "propertyValue",
+    inputType: "currency",
+    schema: currencySchema({ allowZero: false }),
+    showIf: (a) => a.hasProperty === true,
+  },
   {
     id: "bankBalance",
     category: "wealth",
     contentKey: "bankBalance",
+    inputType: "currency",
+    schema: currencySchema(),
+  },
+  {
+    id: "hasInvestments",
+    category: "wealth",
+    contentKey: "hasInvestments",
+    inputType: "boolean",
+    schema: booleanSchema,
+  },
+  {
+    id: "investmentsValue",
+    category: "wealth",
+    contentKey: "investmentsValue",
+    inputType: "currency",
+    schema: currencySchema({ allowZero: false }),
+    showIf: (a) => a.hasInvestments === true,
+  },
+  {
+    id: "cashInHand",
+    category: "wealth",
+    contentKey: "cashInHand",
     inputType: "currency",
     schema: currencySchema(),
   },
@@ -136,26 +175,19 @@ export const WIZARD_STEPS: readonly WizardStep[] = [
     showIf: (a) => a.hasVehicle === true,
   },
   {
-    id: "hasProperty",
+    id: "hasOtherAssets",
     category: "wealth",
-    contentKey: "hasProperty",
+    contentKey: "hasOtherAssets",
     inputType: "boolean",
     schema: booleanSchema,
   },
   {
-    id: "propertyValue",
+    id: "otherAssetsValue",
     category: "wealth",
-    contentKey: "propertyValue",
+    contentKey: "otherAssetsValue",
     inputType: "currency",
     schema: currencySchema({ allowZero: false }),
-    showIf: (a) => a.hasProperty === true,
-  },
-  {
-    id: "cashInHand",
-    category: "wealth",
-    contentKey: "cashInHand",
-    inputType: "currency",
-    schema: currencySchema(),
+    showIf: (a) => a.hasOtherAssets === true,
   },
   {
     id: "hasLiabilities",

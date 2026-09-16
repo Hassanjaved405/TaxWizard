@@ -65,33 +65,49 @@
       "question": "How much did you donate to approved charities?",
       "helpText": "Use the total across all approved donations — keep your receipts, IRIS may ask for them."
     },
-    "bankBalance": {
-      "question": "What's the total balance across your bank accounts right now?",
-      "helpText": "This feeds your Wealth Statement, which FBR compares year over year — add up all accounts as of today."
-    },
-    "hasVehicle": {
-      "question": "Do you own a car or motorbike?",
-      "helpText": "Vehicles registered in your name need to be declared as an asset."
-    },
-    "vehicleValue": {
-      "question": "What's the current value of your vehicle?",
-      "helpText": "An honest estimate of what it would sell for today is fine — you don't need a formal valuation."
-    },
     "hasProperty": {
       "question": "Do you own any property?",
-      "helpText": "This includes land, a house, or an apartment registered in your name, anywhere in Pakistan."
+      "helpText": "This includes land, a house, or an apartment registered in your name, anywhere in Pakistan. In IRIS this is the \"Immovable Properties (Non-Business)\" category of your Wealth Statement."
     },
     "propertyValue": {
       "question": "What's the current value of your property?",
       "helpText": "Use the FBR valuation table if you know it, otherwise a reasonable market estimate."
     },
+    "bankBalance": {
+      "question": "What's the total balance across your bank accounts right now?",
+      "helpText": "This feeds your Wealth Statement, which FBR compares year over year — add up all accounts as of today. In IRIS this sits under \"Financial Assets & Investments (Non-Business).\""
+    },
+    "hasInvestments": {
+      "question": "Do you own any stocks, bonds, mutual funds, or similar investments?",
+      "helpText": "In IRIS this is \"Investments / Stocks / Bonds / etc.\" under Financial Assets & Investments — a separate line from your plain bank balance."
+    },
+    "investmentsValue": {
+      "question": "What's the current value of those investments?",
+      "helpText": "Use today's market value, not what you originally paid."
+    },
     "cashInHand": {
       "question": "How much cash do you have on hand, outside of bank accounts?",
-      "helpText": "A rough figure is fine. Enter 0 if you don't keep meaningful cash on hand."
+      "helpText": "A rough figure is fine. Enter 0 if you don't keep meaningful cash on hand. In IRIS this is \"Cash in hand\" under Financial Assets & Investments."
+    },
+    "hasVehicle": {
+      "question": "Do you own a car or motorbike?",
+      "helpText": "Vehicles registered in your name need to be declared as an asset. In IRIS this is \"Motor Vehicle(s)\" under \"Moveable Assets (Non-Business).\""
+    },
+    "vehicleValue": {
+      "question": "What's the current value of your vehicle?",
+      "helpText": "An honest estimate of what it would sell for today is fine — you don't need a formal valuation."
+    },
+    "hasOtherAssets": {
+      "question": "Do you own any other significant assets not covered above?",
+      "helpText": "Jewelry, gadgets, or anything else of real value. In IRIS this is the \"Any Other Asset(s)\" catch-all category."
+    },
+    "otherAssetsValue": {
+      "question": "What's the combined value of those other assets?",
+      "helpText": "A reasonable honest estimate is fine."
     },
     "hasLiabilities": {
       "question": "Do you have any outstanding loans or liabilities?",
-      "helpText": "This includes bank loans, car financing, or money you owe to be repaid."
+      "helpText": "This includes bank loans, car financing, or money you owe to be repaid. In IRIS this is \"Payables (Borrowing / Loan / Credits, etc.)\"."
     },
     "liabilitiesAmount": {
       "question": "What's the total outstanding amount you owe?",

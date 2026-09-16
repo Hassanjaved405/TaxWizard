@@ -28,12 +28,16 @@ export interface WizardAnswers {
   hasDonations?: boolean;
   donationAmount?: number;
 
-  bankBalance?: number;
-  hasVehicle?: boolean;
-  vehicleValue?: number;
   hasProperty?: boolean;
   propertyValue?: number;
+  bankBalance?: number;
+  hasInvestments?: boolean;
+  investmentsValue?: number;
   cashInHand?: number;
+  hasVehicle?: boolean;
+  vehicleValue?: number;
+  hasOtherAssets?: boolean;
+  otherAssetsValue?: number;
   hasLiabilities?: boolean;
   liabilitiesAmount?: number;
 }
@@ -46,9 +50,11 @@ export type CurrencyFieldKey =
   | "bankProfitTaxWithheld"
   | "donationAmount"
   | "bankBalance"
+  | "investmentsValue"
   | "vehicleValue"
   | "propertyValue"
   | "cashInHand"
+  | "otherAssetsValue"
   | "liabilitiesAmount";
 
 export type BooleanFieldKey =
@@ -56,6 +62,8 @@ export type BooleanFieldKey =
   | "hasDonations"
   | "hasVehicle"
   | "hasProperty"
+  | "hasInvestments"
+  | "hasOtherAssets"
   | "hasLiabilities";
 
 export type SelectFieldKey = "taxYear" | "filingStatus";

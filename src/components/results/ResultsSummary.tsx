@@ -3,8 +3,10 @@ import { formatPkr } from "@/lib/wizard/format";
 import { computeFilingSummary } from "@/lib/taxRules/calculate";
 import { resolveIrisFieldMap } from "@/lib/taxRules/irisMapping";
 import { saveFilingAction } from "@/lib/supabase/actions";
+import { computeWealthSummary } from "@/lib/taxRules/wealthSummary";
 import { SlabBreakdownTable } from "./SlabBreakdownTable";
 import { EmploymentBreakdownTable } from "./EmploymentBreakdownTable";
+import { WealthSummaryTable } from "./WealthSummaryTable";
 
 interface ResultsSummaryProps {
   answers: WizardAnswers;
@@ -34,6 +36,7 @@ const NET_POSITION_COPY: Record<
 export function ResultsSummary({ answers, canSave = false, filingId }: ResultsSummaryProps) {
   const summary = computeFilingSummary(answers);
   const irisRows = resolveIrisFieldMap(summary, answers);
+  const wealthSummary = computeWealthSummary(answers);
   const netCopy = NET_POSITION_COPY[summary.netPosition.type];
   const boundSaveFiling = saveFilingAction.bind(null, answers);
 
@@ -152,6 +155,13 @@ export function ResultsSummary({ answers, canSave = false, filingId }: ResultsSu
       )}
 
       <div className="rounded-lg bg-paper p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] sm:p-8">
+        <h3 className="font-display text-xl font-medium text-paper-ink">Your wealth statement</h3>
+        <div className="mt-4">
+          <WealthSummaryTable summary={wealthSummary} />
+        </div>
+      </div>
+
+      <div className="rounded-lg bg-paper p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] sm:p-8">
         <h3 className="font-display text-xl font-medium text-paper-ink">Documents to have ready</h3>
         <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-paper-ink-soft">
           {DOCUMENT_CHECKLIST.map((item) => (
@@ -184,6 +194,11 @@ export function ResultsSummary({ answers, canSave = false, filingId }: ResultsSu
                 <tr key={row.label} className="border-b border-paper-muted/60 align-top">
                   <td className="py-2 pr-4 text-paper-ink">
                     <span className="font-medium">{row.label}</span>
+                    {row.code && (
+                      <span className="ml-2 font-data text-xs text-brass-strong">
+                        code {row.code}
+                      </span>
+                    )}
                     <br />
                     <span className="text-xs text-paper-ink-soft">
                       {row.form} → {row.tab} → {row.field}

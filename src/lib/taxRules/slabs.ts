@@ -27,6 +27,13 @@ const TY2027_SLABS: SlabTable = {
  * year currently due for filing. UNVERIFIED: mirrors the TY2027 figures as a
  * best-effort placeholder pending confirmation against the official Finance
  * Act 2025 gazette. Do not treat as authoritative.
+ *
+ * Partial real-world cross-check: for one real TY2026 return (salary-only,
+ * taxable income ~1.64M, landing in the 1,200,001–2,200,000 bracket), IRIS's
+ * own live "Computations" page calculated Tax Chargeable = 53,915 against
+ * TaxWizard's 53,914.57 from these same placeholder slabs — a near-exact
+ * match. That's one data point in one bracket, not full verification across
+ * the table (especially the higher brackets), so `verified` stays false.
  */
 const TY2026_SLABS: SlabTable = {
   taxYear: "TY2026",
@@ -34,7 +41,7 @@ const TY2026_SLABS: SlabTable = {
   effectiveTo: "2026-06-30",
   verified: false,
   source:
-    "UNVERIFIED — placeholder pending confirmation against the Finance Act 2025 gazette",
+    "UNVERIFIED — placeholder pending confirmation against the Finance Act 2025 gazette (one real-world data point in the 1.2M–2.2M bracket matched exactly, 2026-09)",
   slabs: TY2027_SLABS.slabs,
 };
 
