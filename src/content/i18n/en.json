@@ -20,6 +20,26 @@
     "monthsTotalLabel": "Months entered",
     "monthsTotalExceeded": "That's more than 12 months — check your entries."
   },
+  "personalExpensesForm": {
+    "totalLabel": "Total entered",
+    "categories": {
+      "rent": "Rent",
+      "electricity": "Electricity",
+      "water": "Water",
+      "gas": "Gas",
+      "telephone": "Telephone",
+      "vehicleRunning": "Vehicle Running / Maintenance",
+      "localTraveling": "Local Traveling",
+      "medical": "Medical",
+      "educational": "Educational",
+      "club": "Club",
+      "functionsGatherings": "Functions / Gatherings",
+      "weddingEvents": "Wedding Events",
+      "ratesTaxes": "Rates / Taxes / Charge / Cess",
+      "assetInsurance": "Asset Insurance / Security",
+      "donationZakatEtc": "Donation, Zakat, Annuity, Profit on Debt, Life Insurance Premium, etc."
+    }
+  },
   "steps": {
     "taxYear": {
       "question": "Which tax year are you filing for?",
@@ -64,6 +84,10 @@
     "donationAmount": {
       "question": "How much did you donate to approved charities?",
       "helpText": "Use the total across all approved donations — keep your receipts, IRIS may ask for them."
+    },
+    "netAssetsPreviousYear": {
+      "question": "What was your total net worth at the start of this tax year?",
+      "helpText": "Everything you owned minus everything you owed, as of the first day of this tax year (assets minus liabilities). IRIS calls this \"Net Assets Previous Year\" in its Reconciliation of Net Assets screen. If this is genuinely your first year building any savings or assets, enter 0."
     },
     "hasProperty": {
       "question": "Do you own any property?",
@@ -112,6 +136,10 @@
     "liabilitiesAmount": {
       "question": "What's the total outstanding amount you owe?",
       "helpText": "Use the current outstanding balance, not the original loan amount."
+    },
+    "personalExpenseEntries": {
+      "question": "What did you spend on yourself and your household this year?",
+      "helpText": "Tick whichever categories genuinely applied to you and enter an honest annual total for each — these are the same categories IRIS itself asks for under Personal Expenses, so the same numbers can go straight into IRIS later. This feeds a sanity check on the next screen: does your income minus these expenses explain how your wealth changed this year."
     }
   }
 }

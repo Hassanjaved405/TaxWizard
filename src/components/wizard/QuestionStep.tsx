@@ -3,7 +3,8 @@
 import { useId, useState } from "react";
 import { CurrencyInput } from "./CurrencyInput";
 import { EmploymentPeriodsInput } from "./EmploymentPeriodsInput";
-import type { EmploymentPeriod, WizardStep } from "@/lib/wizard/types";
+import { PersonalExpensesInput } from "./PersonalExpensesInput";
+import type { EmploymentPeriod, PersonalExpenseEntry, WizardStep } from "@/lib/wizard/types";
 import { getCategoryLabel, getNotice, getStepContent } from "@/lib/wizard/content";
 
 function blankEmploymentPeriod(): EmploymentPeriod {
@@ -37,6 +38,7 @@ export function QuestionStep({
     if (currentValue !== undefined) return currentValue;
     if (step.inputType === "currency") return "";
     if (step.inputType === "employment-list") return [blankEmploymentPeriod()];
+    if (step.inputType === "expense-categories") return [];
     return undefined;
   });
 
@@ -94,6 +96,13 @@ export function QuestionStep({
         {step.inputType === "employment-list" && (
           <EmploymentPeriodsInput
             value={Array.isArray(draft) ? (draft as EmploymentPeriod[]) : []}
+            onChange={setDraft}
+          />
+        )}
+
+        {step.inputType === "expense-categories" && (
+          <PersonalExpensesInput
+            value={Array.isArray(draft) ? (draft as PersonalExpenseEntry[]) : []}
             onChange={setDraft}
           />
         )}

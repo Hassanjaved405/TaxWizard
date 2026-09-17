@@ -35,6 +35,31 @@ const employmentPeriodsSchema = z
     { message: "Total months across employers can't exceed 12." },
   );
 
+export const EXPENSE_CATEGORY_KEYS = [
+  "rent",
+  "electricity",
+  "water",
+  "gas",
+  "telephone",
+  "vehicleRunning",
+  "localTraveling",
+  "medical",
+  "educational",
+  "club",
+  "functionsGatherings",
+  "weddingEvents",
+  "ratesTaxes",
+  "assetInsurance",
+  "donationZakatEtc",
+] as const;
+
+const personalExpenseEntrySchema = z.object({
+  category: z.enum(EXPENSE_CATEGORY_KEYS),
+  amount: currencySchema({ allowZero: false }),
+});
+
+const personalExpenseEntriesSchema = z.array(personalExpenseEntrySchema);
+
 export const WIZARD_STEPS: readonly WizardStep[] = [
   // --- Filing info ---
   {
@@ -114,7 +139,16 @@ export const WIZARD_STEPS: readonly WizardStep[] = [
 
   // --- Wealth statement (ordered to match IRIS's real Personal
   // Assets/Liabilities grouping: Immovable Properties -> Financial Assets
-  // & Investments -> Moveable Assets -> Any Other Assets -> Payables) ---
+  // & Investments -> Moveable Assets -> Any Other Assets -> Payables,
+  // bracketed by a starting net-worth question and a closing expenses
+  // question, matching IRIS's Reconciliation of Net Assets screen) ---
+  {
+    id: "netAssetsPreviousYear",
+    category: "wealth",
+    contentKey: "netAssetsPreviousYear",
+    inputType: "currency",
+    schema: currencySchema(),
+  },
   {
     id: "hasProperty",
     category: "wealth",
@@ -203,5 +237,12 @@ export const WIZARD_STEPS: readonly WizardStep[] = [
     inputType: "currency",
     schema: currencySchema({ allowZero: false }),
     showIf: (a) => a.hasLiabilities === true,
+  },
+  {
+    id: "personalExpenseEntries",
+    category: "wealth",
+    contentKey: "personalExpenseEntries",
+    inputType: "expense-categories",
+    schema: personalExpenseEntriesSchema,
   },
 ] as const;

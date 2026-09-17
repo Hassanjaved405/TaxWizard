@@ -1,5 +1,5 @@
 import en from "@/content/i18n/en.json";
-import type { StepCategory } from "./types";
+import type { ExpenseCategoryKey, StepCategory } from "./types";
 
 interface StepContent {
   question: string;
@@ -19,10 +19,16 @@ interface EmploymentPeriodsFormLabels {
   monthsTotalExceeded: string;
 }
 
+interface PersonalExpensesFormLabels {
+  totalLabel: string;
+  categories: Record<ExpenseCategoryKey, string>;
+}
+
 interface WizardContent {
   categories: Record<StepCategory, string>;
   notices: Record<string, string>;
   employmentPeriodsForm: EmploymentPeriodsFormLabels;
+  personalExpensesForm: PersonalExpensesFormLabels;
   steps: Record<string, StepContent>;
 }
 
@@ -46,4 +52,8 @@ export function getNotice(key: string): string | undefined {
 
 export function getEmploymentFormLabels(): EmploymentPeriodsFormLabels {
   return content.employmentPeriodsForm;
+}
+
+export function getPersonalExpensesFormLabels(): PersonalExpensesFormLabels {
+  return content.personalExpensesForm;
 }

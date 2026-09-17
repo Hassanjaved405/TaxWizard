@@ -14,6 +14,29 @@ export interface EmploymentPeriod {
   taxDeducted: number;
 }
 
+/** IRIS's own Personal Expenses categories, confirmed against a live 114(1) return. */
+export type ExpenseCategoryKey =
+  | "rent"
+  | "electricity"
+  | "water"
+  | "gas"
+  | "telephone"
+  | "vehicleRunning"
+  | "localTraveling"
+  | "medical"
+  | "educational"
+  | "club"
+  | "functionsGatherings"
+  | "weddingEvents"
+  | "ratesTaxes"
+  | "assetInsurance"
+  | "donationZakatEtc";
+
+export interface PersonalExpenseEntry {
+  category: ExpenseCategoryKey;
+  amount: number;
+}
+
 export interface WizardAnswers {
   taxYear?: TaxYear;
   filingStatus?: FilingStatus;
@@ -28,6 +51,7 @@ export interface WizardAnswers {
   hasDonations?: boolean;
   donationAmount?: number;
 
+  netAssetsPreviousYear?: number;
   hasProperty?: boolean;
   propertyValue?: number;
   bankBalance?: number;
@@ -40,6 +64,8 @@ export interface WizardAnswers {
   otherAssetsValue?: number;
   hasLiabilities?: boolean;
   liabilitiesAmount?: number;
+
+  personalExpenseEntries?: PersonalExpenseEntry[];
 }
 
 export type WizardFieldKey = keyof WizardAnswers;
@@ -55,7 +81,8 @@ export type CurrencyFieldKey =
   | "propertyValue"
   | "cashInHand"
   | "otherAssetsValue"
-  | "liabilitiesAmount";
+  | "liabilitiesAmount"
+  | "netAssetsPreviousYear";
 
 export type BooleanFieldKey =
   | "hasBankProfit"
@@ -109,4 +136,15 @@ export interface EmploymentListStep extends WizardStepBase {
   schema: z.ZodType<EmploymentPeriod[]>;
 }
 
-export type WizardStep = CurrencyStep | BooleanStep | SelectStep | EmploymentListStep;
+export interface ExpenseCategoriesStep extends WizardStepBase {
+  id: "personalExpenseEntries";
+  inputType: "expense-categories";
+  schema: z.ZodType<PersonalExpenseEntry[]>;
+}
+
+export type WizardStep =
+  | CurrencyStep
+  | BooleanStep
+  | SelectStep
+  | EmploymentListStep
+  | ExpenseCategoriesStep;

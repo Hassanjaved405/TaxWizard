@@ -4,9 +4,11 @@ import { computeFilingSummary } from "@/lib/taxRules/calculate";
 import { resolveIrisFieldMap } from "@/lib/taxRules/irisMapping";
 import { saveFilingAction } from "@/lib/supabase/actions";
 import { computeWealthSummary } from "@/lib/taxRules/wealthSummary";
+import { computeReconciliation } from "@/lib/taxRules/reconciliation";
 import { SlabBreakdownTable } from "./SlabBreakdownTable";
 import { EmploymentBreakdownTable } from "./EmploymentBreakdownTable";
 import { WealthSummaryTable } from "./WealthSummaryTable";
+import { PersonalExpensesTable } from "./PersonalExpensesTable";
 
 interface ResultsSummaryProps {
   answers: WizardAnswers;
@@ -37,6 +39,7 @@ export function ResultsSummary({ answers, canSave = false, filingId }: ResultsSu
   const summary = computeFilingSummary(answers);
   const irisRows = resolveIrisFieldMap(summary, answers);
   const wealthSummary = computeWealthSummary(answers);
+  const reconciliation = computeReconciliation(answers, summary, wealthSummary);
   const netCopy = NET_POSITION_COPY[summary.netPosition.type];
   const boundSaveFiling = saveFilingAction.bind(null, answers);
 
@@ -159,6 +162,77 @@ export function ResultsSummary({ answers, canSave = false, filingId }: ResultsSu
         <div className="mt-4">
           <WealthSummaryTable summary={wealthSummary} />
         </div>
+      </div>
+
+      <div className="rounded-lg bg-paper p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] sm:p-8">
+        <h3 className="font-display text-xl font-medium text-paper-ink">Your personal expenses</h3>
+        <p className="mt-2 text-xs leading-relaxed text-paper-ink-soft">
+          Same categories IRIS asks for under Personal Expenses — these numbers can go
+          straight into IRIS&apos;s &quot;+ Expenses&quot; picker there.
+        </p>
+        <div className="mt-4">
+          <PersonalExpensesTable entries={answers.personalExpenseEntries ?? []} />
+        </div>
+      </div>
+
+      <div className="rounded-lg bg-paper p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] sm:p-8">
+        <h3 className="font-display text-xl font-medium text-paper-ink">Reconciliation check</h3>
+        <p className="mt-2 text-xs leading-relaxed text-paper-ink-soft">
+          TaxWizard&apos;s own simplified estimate of whether your income minus expenses and
+          tax explains how your net worth changed this year — not a guaranteed match to
+          IRIS&apos;s own Reconciliation of Net Assets calculation, which uses more detail
+          than this wizard collects.
+        </p>
+
+        {reconciliation.flag !== "reconciled" && (
+          <div className="mt-4 rounded-md border border-owe/50 bg-owe/10 px-4 py-3 text-sm leading-relaxed text-paper-ink">
+            <p className="font-medium text-owe">
+              {reconciliation.flag === "underdeclared"
+                ? "Your assets grew by more than your declared income, expenses, and tax explain."
+                : "Your declared income implies more asset growth than you actually have."}
+            </p>
+            <p className="mt-1 text-xs">
+              {reconciliation.flag === "underdeclared"
+                ? "This usually means some income or an asset isn't fully declared yet — double-check before filing."
+                : "This usually means your personal expenses estimate is too low, or an asset is missing — double-check before filing."}
+              {" "}If it doesn&apos;t resolve after reviewing your answers, this is worth a
+              tax professional&apos;s eyes rather than guessing.
+            </p>
+          </div>
+        )}
+        {reconciliation.flag === "reconciled" && (
+          <p className="mt-4 text-sm text-refund">
+            Looks consistent — your declared income, expenses, and tax roughly explain your
+            net worth change this year.
+          </p>
+        )}
+
+        <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+          <dt className="text-paper-ink-soft">Net assets, start of year</dt>
+          <dd className="text-right font-data tabular-nums text-paper-ink">
+            PKR {formatPkr(reconciliation.netAssetsPreviousYear)}
+          </dd>
+          <dt className="text-paper-ink-soft">Total income this year</dt>
+          <dd className="text-right font-data tabular-nums text-paper-ink">
+            PKR {formatPkr(reconciliation.totalIncome)}
+          </dd>
+          <dt className="text-paper-ink-soft">Personal expenses</dt>
+          <dd className="text-right font-data tabular-nums text-paper-ink">
+            − PKR {formatPkr(reconciliation.personalExpenses)}
+          </dd>
+          <dt className="text-paper-ink-soft">Tax paid</dt>
+          <dd className="text-right font-data tabular-nums text-paper-ink">
+            − PKR {formatPkr(reconciliation.taxPaid)}
+          </dd>
+          <dt className="font-medium text-paper-ink">Expected net assets now</dt>
+          <dd className="text-right font-data tabular-nums font-medium text-paper-ink">
+            PKR {formatPkr(reconciliation.expectedNetAssetsCurrentYear)}
+          </dd>
+          <dt className="font-medium text-paper-ink">Actual net assets now</dt>
+          <dd className="text-right font-data tabular-nums font-medium text-paper-ink">
+            PKR {formatPkr(reconciliation.actualNetAssetsCurrentYear)}
+          </dd>
+        </dl>
       </div>
 
       <div className="rounded-lg bg-paper p-6 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] sm:p-8">
